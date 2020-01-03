@@ -1,0 +1,5 @@
+create a new folder web-server
+run cmd "npm init -y" to get the package.json
+run cmd "npm install express --save"
+create sub-folder "src" inside "web-server"
+create a file "app.js" inside "src" folder
