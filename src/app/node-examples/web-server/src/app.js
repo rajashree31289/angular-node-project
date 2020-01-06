@@ -4,6 +4,9 @@ const hbs = require('hbs')
 
 const app = express()
 
+/** For Heroku - set up */
+const port = process.env.PORT || 7070 //Config added for accessing PORT of env variables setup by heroko dynamically
+
 /** know tha absolute path of a file */
 console.log('Directory Name: ', __dirname) // complete path of directory in which the file exists but it gives till src
 console.log('Filename : ', __filename) //complete path till the current file name
@@ -78,6 +81,22 @@ app.get('/help-json', (req, res) => {
     })
 })
 
+
+
+
+/**Query String Parameters */
+app.get('/products', (req, res) => {
+    console.log('Query param : ', req.query)
+    if (!req.query.search) {
+      return res.send({
+          error : 'You must provide a serch term in the url'
+      })
+    }
+    res.send({
+        products : []
+    })
+})
+
 app.get('/help/*', (req, res) => {
    res.render('error-page', {
        title : 'Help Article not found'
@@ -91,6 +110,6 @@ app.get('*', (req, res) => {
 })
 
 /** Starts the web-server */
-app.listen(7070, () => {
-    console.log('Server is up and running on port 7070')
+app.listen(port, () => {
+    console.log('Server is up and running on port ' +  port)
 }) //listen property of express starts the server on a specific port mentioned.
